@@ -93,7 +93,15 @@ def add_to_cart(melon_id):
 def show_shopping_cart():
     """Display content of shopping cart."""
 
-    # TODO: Display the contents of the shopping cart.
+    melons_in_cart = list(session["cart"].keys())
+    total_cost = sum(session["cart"].values())
+
+    # to be continued
+
+    for melon_id in session["cart"]:
+        melons.read_melon_types_from_file(melon_id)
+
+
 
     # The logic here will be something like:
     #
