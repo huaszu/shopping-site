@@ -74,7 +74,6 @@ def add_to_cart(melon_id):
 
     session.modified = True
 
-    # print(session)
     flash("You added a melon to your cart.")
 
     # The logic here should be something like:
@@ -93,15 +92,20 @@ def add_to_cart(melon_id):
 def show_shopping_cart():
     """Display content of shopping cart."""
 
-    melons_in_cart = list(session["cart"].keys())
-    total_cost = sum(session["cart"].values())
+    cart_melon = []
 
-    # to be continued
+    order_total = 0
 
-    for melon_id in session["cart"]:
-        melons.read_melon_types_from_file(melon_id)
+    cart = session.get("cart", {})
 
-
+    for melon_id, quantity in cart.items():
+        melon = melons.get_by_id(melon_id)
+        melon.quantity = quantity
+        melon_price = melon.price
+        melon_total = melon_price * quantity
+        melon.total = melon_total
+        order_total = order_total + melon_total
+        cart_melon.append(melon)
 
     # The logic here will be something like:
     #
